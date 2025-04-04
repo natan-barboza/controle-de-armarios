@@ -1,0 +1,95 @@
+{% load filtering_by_group %}
+<nav class="navbar bg-slate-900 navbar-expand-lg flex-wrap top-0 px-0 py-0">
+    <div class="container py-2">
+      <nav aria-label="breadcrumb">
+        <div class="d-flex align-items-center">
+          <span class="px-3 font-weight-bold text-lg text-white me-4">JOIN US</span>
+        </div>
+      </nav>
+      <ul class="navbar-nav d-none d-lg-flex">
+        {% if request.user.is_superuser %}
+        <li class="nav-item px-3 py-3 border-radius-sm d-flex align-items-center" id="dashboard-li">
+            <a href="{% url 'root' %}" class="nav-link text-white p-0">
+                Dashboard
+            </a>
+        </li>
+        <li class="nav-item px-3 py-3 border-radius-sm d-flex align-items-center" id="armarios-li">
+            <a href="{% url 'cabinets-list' %}" class="nav-link text-white p-0">
+            Armários
+            </a>
+        </li>
+        <li class="nav-item px-3 py-3 border-radius-sm d-flex align-items-center" id="solicitacoes-li">
+            <a href="{% url 'employee-exit-list' %}" class="nav-link text-white p-0">
+                Solicitações
+            </a>
+        </li>
+        <li class="nav-item px-3 py-3 border-radius-sm d-flex align-items-center" id="colaboradores-li">
+          <a href="{% url 'users-list' %}" class="nav-link text-white p-0">
+              Colaboradores
+          </a>
+        </li>
+        {% elif request.user|has_group:"recepcao" %}
+        <li class="nav-item px-3 py-3 border-radius-sm d-flex align-items-center" id="dashboard-li">
+          <a href="{% url 'root' %}" class="nav-link text-white p-0">
+              Dashboard
+          </a>
+        </li>
+        <li class="nav-item px-3 py-3 border-radius-sm d-flex align-items-center" id="armarios-li">
+            <a href="{% url 'cabinets-list' %}" class="nav-link text-white p-0">
+            Armários
+            </a>
+        </li>
+        <li class="nav-item px-3 py-3 border-radius-sm d-flex align-items-center" id="solicitacoes-li">
+            <a href="{% url 'employee-exit-list' %}" class="nav-link text-white p-0">
+                Solicitações
+            </a>
+        </li>
+        {% else %}
+        <li class="nav-item px-3 py-3 border-radius-sm d-flex align-items-center" id="solicitacoes-li">
+          <a href="{% url 'employee-entry' %}" class="nav-link text-white p-0">
+              Entrada
+          </a>
+        </li>
+        <li class="nav-item px-3 py-3 border-radius-sm d-flex align-items-center" id="solicitacoes-li">
+          <a href="{% url 'employee-exit' %}" class="nav-link text-white p-0">
+              Saída
+          </a>
+        </li>
+        {% endif %}
+      </ul>
+      <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
+        <ul class="navbar-nav ms-md-auto  justify-content-end">
+          <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
+            <a href="javascript:;" class="nav-link text-white p-0" id="iconNavbarSidenav">
+              <div class="sidenav-toggler-inner">
+                <i class="sidenav-toggler-line bg-white"></i>
+                <i class="sidenav-toggler-line bg-white"></i>
+                <i class="sidenav-toggler-line bg-white"></i>
+              </div>
+            </a>
+          </li>
+          {% if request.user.is_authenticated %}
+          <li class="nav-item border-radius-sm px-3 py-3 me-2  d-flex align-items-center">
+            <a href="{% url 'logout' %}" class="nav-link text-white p-0">
+              Sair
+            </a>
+            </li>
+            <li class="nav-item d-flex align-items-center ps-2">
+                <li class="nav-item pe-2 d-flex align-items-center">
+                <div class="text-white position-relative">
+                    <span>Bem vindo(a), {{ request.user }}!</span>
+                </div>
+            </li>
+            {% else %}
+            <li class="nav-item d-flex align-items-center ps-2">
+              <li class="nav-item pe-2 d-flex align-items-center">
+              <div class="text-white position-relative">
+                  <span>Bem vindo(a) !</span>
+              </div>
+          </li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+    <hr class="horizontal w-100 my-0 dark">
+</nav>
