@@ -24,6 +24,8 @@ services:
       - controle_armarios_net
     depends_on:
       - db
+    env_file:
+      - .env
 
 volumes:
   postgres-controle-armarios:

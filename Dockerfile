@@ -27,6 +27,8 @@
 
     COPY --chown=app-admin:app-admin . .
 
+    RUN python manage.py collectstatic --noinput
+
     ENV PYTHONDONTWRITEBYTECODE=1
     ENV PYTHONUNBUFFERED=1
 
@@ -34,4 +36,5 @@
 
     EXPOSE 8000
 
-    CMD ["gunicorn", "--bind", "0.0.0.0:8000", "--workers", "3", "core.wsgi:application"]
+    COPY --chown=app-admin:app-admin entrypoint.sh /app/entrypoint.sh
+    ENTRYPOINT ["/app/entrypoint.sh"]
